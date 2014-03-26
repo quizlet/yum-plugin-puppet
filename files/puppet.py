@@ -27,6 +27,13 @@ def config_hook(conduit):
     global puppet_catalog
     global puppet_packages
     global puppet_yaml
+
+    conduit.registerCommand(InstallRemoveCommand())
+    parser = conduit.getOptParser()
+    if parser:
+        parser.add_option('--allow-removal', dest='allow_removal', action='append', metavar='PKG',
+                          help="Allow removal of PKG, even if puppet says otherwise")
+
     puppet_catalog = conduit.confString('main', 'puppet_catalog', default=puppet_catalog)
     if not os.path.exists(puppet_catalog):
         return
@@ -71,11 +78,6 @@ def config_hook(conduit):
             fd.write(content)
             fd.close()
     puppet_files = [x['title'] for x in files if 'title' in x and 'content' in x]
-    conduit.registerCommand(InstallRemoveCommand())
-    parser = conduit.getOptParser()
-    if parser:
-        parser.add_option('--allow-removal', dest='allow_removal', action='append', metavar='PKG',
-                          help="Allow removal of PKG, even if puppet says otherwise")
 
 def nvra_match(po, pkgs):
     n = po.name
