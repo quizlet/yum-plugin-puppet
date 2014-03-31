@@ -1,4 +1,4 @@
-class yum-puppet-plugin {
+class yum_puppet_plugin {
     file { "/etc/yum/pluginconf.d/puppet.conf":
         mode    => 0644,
         owner   => root,
