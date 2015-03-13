@@ -4,13 +4,13 @@ class yum_puppet_plugin {
         owner   => root,
         group   => root,
         ensure  => file,
-        source  => "puppet:///modules/yum_puppet_plugin/puppet.conf",
+        content => template('yum_puppet_plugin/puppet.conf');
     }
     file { "/usr/lib/yum-plugins/puppet.py":
         mode    => '0644',
         owner   => root,
         group   => root,
         ensure  => file,
-        source  => "puppet:///modules/yum_puppet_plugin/puppet.py",
+        content => template('yum_puppet_plugin/puppet.py');
     }
 }
