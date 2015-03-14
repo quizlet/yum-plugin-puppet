@@ -4,7 +4,7 @@ class yum_puppet_plugin {
         owner   => root,
         group   => root,
         ensure  => file,
-        content => template('yum_puppet_plugin/puppet.conf');
+        content => template('yum_puppet_plugin/puppet-yum.conf');
     }
     file { "/usr/lib/yum-plugins/puppet.py":
         mode    => '0644',
